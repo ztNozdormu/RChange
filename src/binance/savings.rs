@@ -1,5 +1,7 @@
 use crate::common::util::build_signed_request;
-use crate::binance::model::{AssetDetail, CoinInfo, DepositAddress, SpotFuturesTransferType, TransactionId};
+use crate::binance::model::{
+    AssetDetail, CoinInfo, DepositAddress, SpotFuturesTransferType, TransactionId,
+};
 use crate::binance::client::Client;
 use crate::common::errors::Result;
 use std::collections::BTreeMap;

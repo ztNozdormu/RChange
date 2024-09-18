@@ -653,7 +653,9 @@ impl FuturesAccount {
             .map(|_| ())
     }
 
-    pub fn get_all_open_orders<S>(&self, symbol: S) -> Result<Vec<crate::binance::futures::model::Order>>
+    pub fn get_all_open_orders<S>(
+        &self, symbol: S,
+    ) -> Result<Vec<crate::binance::futures::model::Order>>
     where
         S: Into<String>,
     {
