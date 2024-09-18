@@ -1,3 +1,3 @@
 pub mod util;
-mod errors;
-mod config;
+pub mod errors;
+pub mod config;
