@@ -34,7 +34,8 @@ mod tests {
 
         let parameters: BTreeMap<String, String> = BTreeMap::new();
         let result =
-            rchange::common::util::build_signed_request_custom(parameters, recv_window, now).unwrap();
+            rchange::common::util::build_signed_request_custom(parameters, recv_window, now)
+                .unwrap();
 
         assert_eq!(
             result,
