@@ -37,10 +37,10 @@ fn general() {
     //     Err(e) => println!("Error: {}", e),
     // }
 
-    // match general.get_symbol_info("btcusdt") {
-    //     Ok(answer) => println!("Symbol information: {:?}", answer),
-    //     Err(e) => println!("Error: {}", e),
-    // }
+    match general.get_symbol_info("btcusdt") {
+        Ok(answer) => println!("Symbol information: {:?}", answer),
+        Err(e) => println!("Error: {}", e),
+    }
 }
 
 fn market_data() {

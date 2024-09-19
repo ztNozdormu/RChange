@@ -49,4 +49,13 @@ impl FuturesGeneral {
             Err(e) => Err(e),
         }
     }
+
+    // Get All Symbol information
+    pub fn get_all_symbol_info(&self) -> Result<Vec<Symbol>>
+    {
+        match self.exchange_info() {
+            Ok(info) => Ok(info.symbols),
+            Err(e) => Err(e),
+        }
+    }
 }
