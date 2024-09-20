@@ -333,3 +333,117 @@ impl Binance for FuturesUserStream {
         }
     }
 }
+
+/// A `enum` that represents the kline period of the Binance kline period.
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+#[warn(non_camel_case_types)]
+pub enum BinanceInterval {
+    m1,
+    m3,
+    m5,
+    m15,
+    m30,
+
+    h1,
+    h2,
+    h4,
+    h6,
+    h8,
+    h12,
+
+    d1,
+    d3,
+
+    w1,
+
+    M1,
+}
+
+impl BinanceInterval {
+    pub fn name(self) -> String {
+        // 周期字符串名称
+        match self {
+            BinanceInterval::m1 => "1m".to_string(),
+            BinanceInterval::m3 => "3m".to_string(),
+            BinanceInterval::m5 => "5m".to_string(),
+            BinanceInterval::m15 => "15m".to_string(),
+            BinanceInterval::m30 => "30m".to_string(),
+
+            BinanceInterval::h1 => "1h".to_string(),
+            BinanceInterval::h2 => "2h".to_string(),
+            BinanceInterval::h4 => "4h".to_string(),
+            BinanceInterval::h6 => "6h".to_string(),
+            BinanceInterval::h8 => "8h".to_string(),
+            BinanceInterval::h12 => "12h".to_string(),
+
+            BinanceInterval::d1 => "1d".to_string(),
+            BinanceInterval::d3 => "3d".to_string(),
+
+            BinanceInterval::w1 => "1w".to_string(),
+
+            BinanceInterval::M1 => "1M".to_string(),
+        }
+    }
+    // 周期对应的毫秒值
+    pub fn value(self) -> u64 {
+        match self {
+            BinanceInterval::m1 => Duration::from_secs(1 * 60).as_secs(),
+            BinanceInterval::m3 => Duration::from_secs(3 * 60).as_secs(),
+            BinanceInterval::m5 => Duration::from_secs(5 * 60).as_secs(),
+            BinanceInterval::m15 => Duration::from_secs(15 * 60).as_secs(),
+            BinanceInterval::m30 => Duration::from_secs(30 * 60).as_secs(),
+
+            BinanceInterval::h1 => Duration::from_secs(1 * 3600).as_secs(),
+            BinanceInterval::h2 => Duration::from_secs(2 * 3600).as_secs(),
+            BinanceInterval::h4 => Duration::from_secs(4 * 3600).as_secs(),
+            BinanceInterval::h6 => Duration::from_secs(6 * 3600).as_secs(),
+            BinanceInterval::h8 => Duration::from_secs(8 * 3600).as_secs(),
+            BinanceInterval::h12 => Duration::from_secs(12 * 3600).as_secs(),
+
+            BinanceInterval::d1 => Duration::from_secs(1 * 24 * 3600).as_secs(),
+            BinanceInterval::d3 => Duration::from_secs(3 * 24 * 3600).as_secs(),
+            BinanceInterval::w1 => Duration::from_secs(7 * 24 * 3600).as_secs(),
+            BinanceInterval::M1 => {
+                Duration::from_secs(get_current_month_days() * 24 * 3600).as_secs()
+            }
+        }
+    }
+    // 周期枚举循环迭代函数 暂时只取15m 30m 2h 4h 8h d1 数据
+    pub fn iterator() -> impl Iterator<Item = BinanceInterval> {
+        [
+            BinanceInterval::m5,
+            BinanceInterval::m15,
+            BinanceInterval::m30,
+            BinanceInterval::h2,
+            BinanceInterval::h4,
+            BinanceInterval::h8,
+            BinanceInterval::d1,
+        ]
+        .into_iter()
+    }
+}
+/**
+ * 获取当前月天数
+ */
+fn get_current_month_days() -> u64 {
+    // 获取当前日期
+    let today = Utc::now().naive_utc().date();
+
+    let year = today.year();
+    let month = today.month();
+
+    // 获取下个月的第1天
+    let next_month = if month == 12 {
+        NaiveDate::from_ymd_opt(year + 1, 1, 1)
+    } else {
+        NaiveDate::from_ymd_opt(year, month + 1, 1)
+    };
+
+    // 当前月的第1天
+    let this_month = NaiveDate::from_ymd_opt(year, month, 1);
+
+    // 计算当前月的天数
+    let days_in_month = (next_month.unwrap() - this_month.unwrap()).num_days() as u64;
+
+    days_in_month
+}
