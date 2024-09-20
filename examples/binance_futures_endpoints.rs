@@ -42,7 +42,7 @@ fn general() {
         Err(e) => println!("Error: {}", e),
     }
     
-    match general.get_all_symbol_info() {
+    match general.get_symbols() {
         Ok(answer) => println!("Symbol information: {:?}", answer),
         Err(e) => println!("Error: {}", e),
     }
