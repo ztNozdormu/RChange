@@ -18,6 +18,7 @@ reqwest = { version = "0.11.24", features = ["blocking", "json"] }
 tungstenite = { version = "0.21.0", features = ["native-tls"] }
 url = "2.5.0"
 clap = "4.5.2"
+chrono = { version = "0.4.38", features = ["serde"] }
 
 [features]
 vendored-tls = [

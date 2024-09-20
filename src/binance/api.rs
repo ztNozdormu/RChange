@@ -1,3 +1,5 @@
+use chrono::{NaiveDate, Utc, Datelike};
+use std::time::Duration;
 use crate::binance::account::Account;
 use crate::binance::client::Client;
 use crate::common::config::Config;
@@ -9,6 +11,7 @@ use crate::binance::general::General;
 use crate::binance::market::Market;
 use crate::binance::userstream::UserStream;
 use crate::binance::savings::Savings;
+
 
 #[allow(clippy::all)]
 pub enum API {
@@ -335,7 +338,6 @@ impl Binance for FuturesUserStream {
 }
 
 /// A `enum` that represents the kline period of the Binance kline period.
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
 #[warn(non_camel_case_types)]
 pub enum BinanceInterval {
     m1,
