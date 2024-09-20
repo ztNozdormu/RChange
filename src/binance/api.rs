@@ -338,7 +338,7 @@ impl Binance for FuturesUserStream {
 }
 
 /// A `enum` that represents the kline period of the Binance kline period.
-#[derive(Clone,Copy)]
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
 #[warn(non_camel_case_types)]
 pub enum BinanceInterval {
     m1,
