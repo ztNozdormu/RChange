@@ -41,6 +41,11 @@ fn general() {
         Ok(answer) => println!("Symbol information: {:?}", answer),
         Err(e) => println!("Error: {}", e),
     }
+    
+    match general.get_all_symbol_info() {
+        Ok(answer) => println!("Symbol information: {:?}", answer),
+        Err(e) => println!("Error: {}", e),
+    }
 }
 
 fn market_data() {
